@@ -1,0 +1,25 @@
+# DP vs Greedy Comparison
+
+amount = 6
+coins = [1, 3, 4]
+
+# Greedy Algorithm
+count = 0
+temp = amount
+
+for coin in sorted(coins, reverse=True):
+    while temp >= coin:
+        temp -= coin
+        count += 1
+
+print("Greedy Coins Used =", count)
+
+# Dynamic Programming
+dp = [0] + [999] * amount
+
+for i in range(1, amount + 1):
+    for coin in coins:
+        if coin <= i:
+            dp[i] = min(dp[i], dp[i - coin] + 1)
+
+print("DP Coins Used =", dp[amount])
